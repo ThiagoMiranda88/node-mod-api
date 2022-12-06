@@ -1,0 +1,5 @@
+npm install dotenv express mysql2 sequelize validator
+tsc --init
+npm install -D @types/express @types/node @types/sequelize @types/validator
+npm install cors
+npm install -D @types/cors
