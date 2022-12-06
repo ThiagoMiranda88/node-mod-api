@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import { Sequelize } from 'sequelize';
-
+import sharp from 'sharp';
+import { unlink } from 'fs/promises'; //deletar file sistem
 import { Phrase } from '../models/Phrase';
 
 export const ping = (req: Request, res: Response) => {
@@ -90,6 +91,28 @@ export const randomPhrase = async (req: Request, res: Response) => {
         res.json({ phrase });
     }else{
         res.json({ error: 'Não há frases cadastradas.' });
+    }
+    
+}
+
+export const uploadFile = async (req: Request, res: Response) => {
+
+    if(req.file){
+
+        const filename = `${req.file.filename}.jpg`;
+
+        await sharp(req.file.path)
+            .resize(300)
+            .toFormat('jpeg')
+            .toFile(`./public/media/${filename}`);
+
+        await unlink(req.file.path);//remover arquivo da pasta tmp
+
+        res.json({image: `${filename}`});
+
+    } else {
+        res.status(400);
+        res.json({ error: 'Arquivo inválido.'})
     }
     
 }

@@ -3,3 +3,7 @@ tsc --init
 npm install -D @types/express @types/node @types/sequelize @types/validator
 npm install cors
 npm install -D @types/cors
+npm install multer
+npm install -D @types/multer
+npm install sharp
+npm install -D @types/sharp
